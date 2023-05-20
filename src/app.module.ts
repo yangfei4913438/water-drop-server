@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,9 +7,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
+import { OSSModule } from './modules/oss/oss.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env.local',
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -22,11 +27,12 @@ import { UserModule } from './modules/user/user.module';
       entities: [`${__dirname}/../modules/**/*.entity{.ts,.js}`], // 指定数据表映射文件的位置
       autoLoadEntities: true, // 如果true，实体将自动加载
     }),
-    UserModule, // 需要在 GraphQL 上面
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true, // 内存存储
     }),
+    UserModule, // 需要在 GraphQL 上面
+    OSSModule,
   ],
   controllers: [AppController],
   providers: [AppService],
