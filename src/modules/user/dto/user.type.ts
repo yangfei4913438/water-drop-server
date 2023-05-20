@@ -11,6 +11,9 @@ export class UserType {
   @Field({ description: '账号描述' })
   desc?: string;
 
+  @Field({ description: '账号头像' })
+  avatar?: string;
+
   @Field({ description: '用户电话' })
   tel?: string;
 

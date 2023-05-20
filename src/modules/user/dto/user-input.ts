@@ -7,14 +7,17 @@ export class UserInput {
   name: string;
 
   @Field({ description: '账号描述', nullable: true })
-  desc?: string;
+  desc: string;
+
+  @Field({ description: '账号头像', nullable: true })
+  avatar: string;
 
   @Field({ description: '用户电话', nullable: true })
-  tel?: string;
+  tel: string;
 
   @Field({ description: '登录密码', nullable: true })
-  password?: string;
+  password: string;
 
   @Field({ description: '登录账户', nullable: true })
-  account?: string;
+  account: string;
 }

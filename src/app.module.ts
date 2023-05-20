@@ -31,7 +31,7 @@ import { OSSModule } from './modules/oss/oss.module';
       driver: ApolloDriver,
       autoSchemaFile: true, // 内存存储
     }),
-    UserModule, // 需要在 GraphQL 上面
+    UserModule,
     OSSModule,
   ],
   controllers: [AppController],

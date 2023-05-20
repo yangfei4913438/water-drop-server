@@ -16,6 +16,9 @@ export class User {
   @Column({ comment: '手机号', nullable: true })
   tel: string;
 
+  @Column({ comment: '用户头像', nullable: true })
+  avatar: string;
+
   @Column({ comment: '登录密码', nullable: true })
   password: string;
 
