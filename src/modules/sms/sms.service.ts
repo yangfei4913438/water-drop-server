@@ -53,7 +53,7 @@ export class SmsService {
       );
       if (res.body.code.toLowerCase() === 'ok') {
         // 有效时间3分钟
-        await this.redisService.setValue(tel, smsCode, 60);
+        await this.redisService.setValue(tel, smsCode, 3 * 60);
         // 返回验证码
         return smsCode;
       }
@@ -70,7 +70,7 @@ export class SmsService {
   }
 
   async smsLogin(tel: string, code: string) {
-    const cache = await this.redisService.getValue(tel);
+    const cache = await this.redisService.getValue<string>(tel);
     if (cache === code) {
       const user = await this.userService.findByPhone(tel);
       if (user) {
