@@ -70,4 +70,19 @@ export class UserService {
         return new User();
       });
   }
+
+  findByPhone(tel: string): Promise<User> {
+    return this.UserRepository.findOne({
+      where: {
+        tel,
+      },
+    })
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        this.handleError(err);
+        return new User();
+      });
+  }
 }

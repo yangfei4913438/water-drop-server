@@ -13,7 +13,7 @@ export class User {
   @Column({ comment: '描述', default: '' })
   desc: string;
 
-  @Column({ comment: '手机号', nullable: true })
+  @Column({ comment: '手机号', unique: true })
   tel: string;
 
   @Column({ comment: '用户头像', nullable: true })

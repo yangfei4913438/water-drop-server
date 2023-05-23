@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { ConsoleLogger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { OSSModule } from './modules/oss/oss.module';
 import { SmsModule } from './modules/sms/sms.module';
+import { RedisModule } from './modules/redis/redis.module';
 
 @Module({
   imports: [
@@ -32,11 +33,12 @@ import { SmsModule } from './modules/sms/sms.module';
       driver: ApolloDriver,
       autoSchemaFile: true, // 内存存储
     }),
+    RedisModule,
     UserModule,
     OSSModule,
     SmsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [ConsoleLogger, AppService],
 })
 export class AppModule {}
