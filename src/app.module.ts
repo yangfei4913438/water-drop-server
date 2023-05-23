@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { OSSModule } from './modules/oss/oss.module';
+import { SmsModule } from './modules/sms/sms.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { OSSModule } from './modules/oss/oss.module';
     }),
     UserModule,
     OSSModule,
+    SmsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
