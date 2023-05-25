@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -21,5 +23,13 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: path.join(__dirname, './tsconfig.json'), // 读取ts配置文件
+        alwaysTryTypes: true, // always try to resolve types under
+      },
+    },
   },
 };

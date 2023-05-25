@@ -9,7 +9,6 @@
     "target": "ES2015",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -21,5 +20,12 @@
     "moduleResolution": "node", // 模块解析策略，ts默认用node的解析策略，即相对的方式导入
     "resolveJsonModule": true, // 直接加载json文件
     "esModuleInterop": true, // 可以直接使用 import react from react, 否则要 import * as react from react
+
+    // 指定根路径
+    "baseUrl": ".",
+    /* 配置路径别名 */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

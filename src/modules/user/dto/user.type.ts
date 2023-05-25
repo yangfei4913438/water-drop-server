@@ -1,5 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
+/**
+ * 返回的用户类型
+ * 这里不要把用户密码返回！
+ * */
 @ObjectType()
 export class UserType {
   @Field({ description: '用户id' })
@@ -16,9 +20,6 @@ export class UserType {
 
   @Field({ description: '用户电话' })
   tel?: string;
-
-  @Field({ description: '登录密码' })
-  password?: string;
 
   @Field({ description: '登录账户' })
   account?: string;

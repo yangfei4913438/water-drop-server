@@ -8,8 +8,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { OSSModule } from './modules/oss/oss.module';
-import { SmsModule } from './modules/sms/sms.module';
 import { RedisModule } from './modules/redis/redis.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -18,11 +18,11 @@ import { RedisModule } from './modules/redis/redis.module';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '11111111',
-      database: 'water-drop',
+      host: process.env.MYSQL_HOST,
+      port: parseInt(process.env.MYSQL_POST),
+      username: process.env.MYSQL_USERNAME,
+      password: process.env.MYSQL_PWD,
+      database: process.env.MYSQL_DATABASE,
       logging: true, // 是否启用日志记录
       dropSchema: false, // 每次初始化数据源时删除架构。谨慎使用此选项，不要在生产中使用它 - 否则您将丢失所有生产数据
       synchronize: false, // 是否应在每次应用程序启动时自动创建数据库模式。请小心使用此选项，不要在生产中使用它-否则您可能会丢失生产数据。
@@ -33,10 +33,10 @@ import { RedisModule } from './modules/redis/redis.module';
       driver: ApolloDriver,
       autoSchemaFile: true, // 内存存储
     }),
+    AuthModule,
     RedisModule,
-    UserModule,
     OSSModule,
-    SmsModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [ConsoleLogger, AppService],
