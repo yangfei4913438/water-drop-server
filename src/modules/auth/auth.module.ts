@@ -18,7 +18,7 @@ import { AuthResolver } from '@/modules/auth/auth.resolver';
     JwtModule.register({
       secret: process.env.JWT_SECRET, // 签名密钥
       signOptions: {
-        expiresIn: '60s', // 密钥过期时间
+        expiresIn: '3d', // jwt密钥过期时间 3 天
       },
     }),
   ],

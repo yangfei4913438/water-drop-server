@@ -1,12 +1,22 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver, Context } from '@nestjs/graphql';
+import { ExecutionContext, UseGuards } from '@nestjs/common';
+
 import { UserService } from './user.service';
 import { UserInput } from './dto/user-input';
 import { UserType } from './dto/user.type';
+import { JwtGuard } from '@/modules/guard/jwt.guard';
 
 @Resolver()
 export class UserResolver {
   // 初始化用户操作实例
   constructor(private readonly userService: UserService) {}
+
+  // 使用token获取用户信息
+  @UseGuards(JwtGuard)
+  @Query(() => UserType, { description: '' })
+  async profile(@Context() context: ExecutionContext): Promise<UserType> {
+    return context['req'].user;
+  }
 
   @Query(() => UserType, { description: '使用id查询用户信息' })
   async find(@Args('id') id: string): Promise<UserType> {
