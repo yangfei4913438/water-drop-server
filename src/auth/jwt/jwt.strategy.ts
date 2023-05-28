@@ -1,8 +1,7 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-
-import { UserType } from '@/modules/user/dto/user.type';
+import { UserOutputType } from '@/modules/user/dto/user.output.type';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -17,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(user: UserType): Promise<UserType> {
+  async validate(user: UserOutputType): Promise<UserOutputType> {
     if (!user.id) {
       // 用户id都没有，肯定没有访问权限，抛出 401 异常
       throw new UnauthorizedException();

@@ -5,7 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
-import { AuthResolver } from '@/modules/auth/auth.resolver';
+import { AuthResolver } from '@/auth/auth.resolver';
 
 @Global()
 @Module({

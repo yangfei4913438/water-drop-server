@@ -7,9 +7,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
-import { OSSModule } from './modules/oss/oss.module';
-import { RedisModule } from './modules/redis/redis.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { OSSModule } from '@/oss/oss.module';
+import { RedisModule } from '@/redis/redis.module';
+import { AuthModule } from '@/auth/auth.module';
 
 @Module({
   imports: [

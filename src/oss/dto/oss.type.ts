@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
-@ObjectType()
+@ObjectType({ description: '返回的 OSS 数据类型' })
 export class OSSType {
   @Field({ description: '过期时间' })
   expire: string;

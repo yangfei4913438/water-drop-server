@@ -4,7 +4,7 @@ import { UseGuards } from '@nestjs/common';
 import { OSSType } from './dto/oss.type';
 import { OSSService } from './oss.service';
 
-import { GqlAuthGuard } from '@/modules/guard/gql.guard';
+import { GqlAuthGuard } from '@/guard/gql.guard';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)

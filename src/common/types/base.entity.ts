@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   DeleteDateColumn,
 } from 'typeorm';
+import { getDayjs } from '@/utils';
 
 export class BaseEntity {
   // uuid 不会被猜到，安全性更高
@@ -15,6 +16,7 @@ export class BaseEntity {
   @Column({
     comment: '创建时间',
     type: 'timestamp',
+    default: getDayjs.toUTCDate(),
   })
   createdAt: Date;
 
@@ -59,7 +61,7 @@ export class BaseEntity {
   // 创建之前加上创建和更新时间
   @BeforeInsert()
   setCreatedAt() {
-    const now = new Date();
+    const now = getDayjs.toUTCDate();
     this.createdAt = now;
     this.updatedAt = now;
   }
@@ -67,7 +69,7 @@ export class BaseEntity {
   // 更新之前更新更新时间
   @BeforeUpdate()
   setUpdatedAt() {
-    this.updatedAt = new Date();
+    this.updatedAt = getDayjs.toUTCDate();
   }
 
   @BeforeInsert()
