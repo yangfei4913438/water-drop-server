@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository } from 'typeorm';
 
-import { User } from './user.entity';
+import { UserEntity } from './user.entity';
 import { UserResultsType, UserResultType } from '@/modules/user/dto/user.result.type';
 import { ResultBoolean } from '@/common/types/result.type';
 
@@ -10,11 +10,11 @@ import { ResultBoolean } from '@/common/types/result.type';
 @Injectable()
 export class UserService {
   // 注入一个Repository类型的操作实例对象，基于数据库定义User
-  constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+  constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) {}
 
   /** 新增用户 */
   // DeepPartial 将属性变为可选，不需要全部都传递
-  async create(entity: DeepPartial<User>): Promise<ResultBoolean> {
+  async create(entity: DeepPartial<UserEntity>): Promise<ResultBoolean> {
     try {
       const res = await this.userRepository.insert(entity);
       // 新增记录，只能是一条记录影响
@@ -49,6 +49,11 @@ export class UserService {
           message: '删除成功',
           data: true,
         };
+      } else if (res && !res.affected) {
+        return {
+          code: 400,
+          message: '没有匹配到任何用户信息',
+        };
       } else {
         return {
           code: 500,
@@ -74,6 +79,11 @@ export class UserService {
           message: '删除成功',
           data: true,
         };
+      } else if (res && !res.affected) {
+        return {
+          code: 400,
+          message: '没有匹配到任何用户信息',
+        };
       } else {
         return {
           code: 500,
@@ -89,7 +99,7 @@ export class UserService {
   }
 
   /** 更新用户信息 */
-  async update(id: string, entity: DeepPartial<User>): Promise<ResultBoolean> {
+  async update(id: string, entity: DeepPartial<UserEntity>): Promise<ResultBoolean> {
     try {
       const res = await this.userRepository.update(id, entity);
       // 更新记录，只能是一条记录影响
@@ -98,6 +108,11 @@ export class UserService {
           code: 200,
           message: '更新成功',
           data: true,
+        };
+      } else if (res && !res.affected) {
+        return {
+          code: 400,
+          message: '没有匹配到任何用户信息',
         };
       } else {
         return {
@@ -117,10 +132,16 @@ export class UserService {
   async findOne(id: string): Promise<UserResultType> {
     try {
       const res = await this.userRepository.findOne({ where: { id } });
+      if (res) {
+        return {
+          code: 200,
+          message: '获取数据成功',
+          data: res,
+        };
+      }
       return {
-        code: 200,
-        message: '获取数据成功',
-        data: res,
+        code: 400,
+        message: '查询的用户不存在',
       };
     } catch (err) {
       return {

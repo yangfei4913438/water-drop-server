@@ -8,7 +8,6 @@ import * as $Util from '@alicloud/tea-util';
 import { UserService } from '@/modules/user/user.service';
 import { randomCode } from '@/utils';
 import { RedisService } from '@/redis/redis.service';
-import { UserOutputType } from '@/modules/user/dto/user.output.type';
 import { AuthResultType } from '@/auth/dto/auth.result.type';
 import { ResultString } from '@/common/types/result.type';
 
@@ -88,7 +87,7 @@ export class AuthService {
       const cache = await this.redisService.getValue<string>(tel);
       if (cache === code) {
         const res = await this.userService.findByPhone(tel);
-        if (res.code === 200 && res.data instanceof UserOutputType) {
+        if (res.code === 200) {
           // 这里测试，就线不删除了。
           // await this.redisService.del(tel);
           const token = this.jwtService.sign({ id: res.data.id });

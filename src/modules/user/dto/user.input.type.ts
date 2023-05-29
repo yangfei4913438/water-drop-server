@@ -6,7 +6,7 @@ import { Field, InputType } from '@nestjs/graphql';
  * */
 @InputType({ description: '输入的用户数据类型' })
 export class UserInputType {
-  @Field(() => String, { description: '用户类型: student,teacher,admin' })
+  @Field(() => String, { description: '用户类型: student,teacher,admin', nullable: true })
   userType: string;
 
   @Field(() => Boolean, {
@@ -15,7 +15,7 @@ export class UserInputType {
   })
   disabled: boolean;
 
-  @Field(() => String, { description: '用户昵称' })
+  @Field(() => String, { description: '用户昵称', nullable: true })
   name: string;
 
   @Field(() => String, { description: '用户描述', nullable: true })

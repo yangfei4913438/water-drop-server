@@ -2,7 +2,7 @@ import { Entity, Column } from 'typeorm';
 import { BaseEntity } from '@/common/types/base.entity';
 
 @Entity('user')
-export class User extends BaseEntity {
+export class UserEntity extends BaseEntity {
   @Column({ comment: '用户昵称', nullable: false }) // 参数是数据库层面的约束
   name: string;
 

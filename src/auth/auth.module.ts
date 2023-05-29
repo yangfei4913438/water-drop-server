@@ -2,7 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserModule } from '@/modules/user/user.module';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './jwt/jwt.strategy';
+import { JwtStrategy } from './jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { AuthResolver } from '@/auth/auth.resolver';
@@ -11,7 +11,7 @@ import { AuthResolver } from '@/auth/auth.resolver';
 @Module({
   imports: [
     UserModule,
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }), // 默认策略
     ConfigModule.forRoot({
       envFilePath: '.env.local',
     }),

@@ -5,6 +5,9 @@ import {
   Column,
   PrimaryGeneratedColumn,
   DeleteDateColumn,
+  BeforeSoftRemove,
+  UpdateDateColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { getDayjs } from '@/utils';
 
@@ -13,11 +16,9 @@ export class BaseEntity {
   @PrimaryGeneratedColumn('uuid', { comment: 'ID' })
   id: string;
 
-  @Column({
-    comment: '创建时间',
-    type: 'timestamp',
-    default: getDayjs.toUTCDate(),
-  })
+  @CreateDateColumn({ comment: '创建时间', type: 'timestamp', default: getDayjs.toUTCDate() })
+  @IsDate()
+  @IsOptional()
   createdAt: Date;
 
   @Column({
@@ -27,11 +28,9 @@ export class BaseEntity {
   @IsOptional()
   createdBy: string;
 
-  @Column({
-    comment: '修改时间',
-    type: 'timestamp',
-    nullable: true,
-  })
+  @UpdateDateColumn({ comment: '修改时间', type: 'timestamp', nullable: true })
+  @IsDate()
+  @IsOptional()
   updatedAt: Date;
 
   @Column({
@@ -41,14 +40,9 @@ export class BaseEntity {
   @IsOptional()
   updatedBy: string;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ comment: '删除时间', type: 'timestamp', nullable: true })
   @IsDate()
   @IsOptional()
-  @Column({
-    comment: '删除时间',
-    type: 'timestamp',
-    nullable: true,
-  })
   deletedAt: Date;
 
   @Column({
@@ -65,22 +59,29 @@ export class BaseEntity {
     this.createdAt = now;
     this.updatedAt = now;
   }
-
-  // 更新之前更新更新时间
-  @BeforeUpdate()
-  setUpdatedAt() {
-    this.updatedAt = getDayjs.toUTCDate();
-  }
-
   @BeforeInsert()
   async validateBeforeInsert() {
     // 插入之前，走上面定义的校验器
     await validateOrReject(this);
   }
 
+  // 更新之前更新更新时间
+  @BeforeUpdate()
+  setUpdatedAt() {
+    this.updatedAt = getDayjs.toUTCDate();
+  }
   @BeforeUpdate()
   async validateBeforeUpdate() {
     // 更新之前，走上面定义的校验器
-    await validateOrReject(this, { skipMissingProperties: true });
+    await validateOrReject(this);
+  }
+
+  @BeforeSoftRemove()
+  async setRemoveAt() {
+    this.deletedAt = getDayjs.toUTCDate();
+  }
+  @BeforeSoftRemove()
+  async validateBeforeRemove() {
+    await validateOrReject(this);
   }
 }

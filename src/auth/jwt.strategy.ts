@@ -1,27 +1,18 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserOutputType } from '@/modules/user/dto/user.output.type';
+import { Injectable } from '@nestjs/common';
 
+// 这里就是一个 JWT 配置文件，校验逻辑不是写在这里的，需要到守卫文件里面去写。
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
       // token 从哪里找，这里标记是header。格式 Authorization: bearer JSON_WEB_TOKEN_STRING.....
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      // 将jwt的有效期管理，托管给passport
+      // 默认为 false，表示由 Passport 模块来检查 JWT 是否已过期。 如果请求携带了一个过期的 JWT，该请求将会被拒绝，并响应 401
       ignoreExpiration: false,
       // 对称密钥，生产推荐使用 PEM 编码的公钥
       secretOrKey: process.env.JWT_SECRET,
     });
-  }
-
-  async validate(user: UserOutputType): Promise<UserOutputType> {
-    if (!user.id) {
-      // 用户id都没有，肯定没有访问权限，抛出 401 异常
-      throw new UnauthorizedException();
-    }
-    // 返回用户id，用户名称
-    return user;
   }
 }

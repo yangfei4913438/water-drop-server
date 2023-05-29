@@ -1,4 +1,4 @@
-import { ConsoleLogger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -39,6 +39,6 @@ import { AuthModule } from '@/auth/auth.module';
     UserModule,
   ],
   controllers: [AppController],
-  providers: [ConsoleLogger, AppService],
+  providers: [AppService],
 })
 export class AppModule {}
