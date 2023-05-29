@@ -41,9 +41,13 @@ export class AuthService {
     // 查询缓存
     const code = await this.redisService.getValue<string>(tel);
     if (code) {
+      // 返回缓存数据
+      // 如果是生产业务系统，需要再调用一次短信发送接口，这里是测试环境，没办法频繁发送短信，所以只是通过接口返回，
+      // 区别就是，验证码是从redis里取出来的，不是重新生成的。
       return {
-        code: 403,
-        message: '3天 内无法重复请求',
+        code: 200,
+        message: '验证码还在有效期',
+        data: code,
       };
     }
     // 验证码长4位
