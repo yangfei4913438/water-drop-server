@@ -3,12 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository } from 'typeorm';
 
 import { User } from './user.entity';
-import { UserInputType } from '@/modules/user/dto/user.input.type';
-import {
-  UserBooleanResultType,
-  UserResultsType,
-  UserResultType,
-} from '@/modules/user/dto/user.result.type';
+import { UserResultsType, UserResultType } from '@/modules/user/dto/user.result.type';
+import { ResultBoolean } from '@/common/types/result.type';
 
 // 可注入声明
 @Injectable()
@@ -18,7 +14,7 @@ export class UserService {
 
   /** 新增用户 */
   // DeepPartial 将属性变为可选，不需要全部都传递
-  async create(entity: DeepPartial<UserInputType>): Promise<UserBooleanResultType> {
+  async create(entity: DeepPartial<User>): Promise<ResultBoolean> {
     try {
       const res = await this.userRepository.insert(entity);
       // 新增记录，只能是一条记录影响
@@ -43,7 +39,7 @@ export class UserService {
   }
 
   /** 删除用户 */
-  async delete(id: string): Promise<UserBooleanResultType> {
+  async delete(id: string): Promise<ResultBoolean> {
     try {
       const res = await this.userRepository.softDelete(id);
       // 这只是删除一条记录，而且使用记录id，所以只可能和一条记录发生关联。
@@ -68,7 +64,7 @@ export class UserService {
   }
 
   /** 永久删除用户 */
-  async deleteForever(id: string): Promise<UserBooleanResultType> {
+  async deleteForever(id: string): Promise<ResultBoolean> {
     try {
       const res = await this.userRepository.delete(id);
       // 这只是删除一条记录，而且使用记录id，所以只可能和一条记录发生关联。
@@ -93,7 +89,7 @@ export class UserService {
   }
 
   /** 更新用户信息 */
-  async update(id: string, entity: DeepPartial<UserInputType>): Promise<UserBooleanResultType> {
+  async update(id: string, entity: DeepPartial<User>): Promise<ResultBoolean> {
     try {
       const res = await this.userRepository.update(id, entity);
       // 更新记录，只能是一条记录影响

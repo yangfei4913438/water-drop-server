@@ -1,7 +1,8 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { LoginType } from './dto/login.type';
 import { AuthService } from './auth.service';
-import { AuthResultType, AuthStringResultType } from '@/auth/dto/auth.result.type';
+import { AuthResultType } from '@/auth/dto/auth.result.type';
+import { ResultString } from '@/common/types/result.type';
 
 @Resolver()
 export class AuthResolver {
@@ -13,7 +14,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => String, { description: '发送短信验证码' })
-  async codeMessage(@Args('tel') tel: string): Promise<AuthStringResultType> {
+  async codeMessage(@Args('tel') tel: string): Promise<ResultString> {
     return await this.authService.codeMessage(tel);
   }
 }

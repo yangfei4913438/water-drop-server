@@ -9,7 +9,8 @@ import { UserService } from '@/modules/user/user.service';
 import { randomCode } from '@/utils';
 import { RedisService } from '@/redis/redis.service';
 import { UserOutputType } from '@/modules/user/dto/user.output.type';
-import { AuthResultType, AuthStringResultType } from '@/auth/dto/auth.result.type';
+import { AuthResultType } from '@/auth/dto/auth.result.type';
+import { ResultString } from '@/common/types/result.type';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +32,7 @@ export class AuthService {
     this.smsClient = new Dysmsapi20170525(config);
   }
 
-  async codeMessage(tel: string): Promise<AuthStringResultType> {
+  async codeMessage(tel: string): Promise<ResultString> {
     if (!tel) {
       return {
         code: 400,

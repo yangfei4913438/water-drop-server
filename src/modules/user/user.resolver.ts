@@ -6,11 +6,8 @@ import { UserInputType } from './dto/user.input.type';
 import { JwtGuard } from '@/guard/jwt.guard';
 import { GqlAuthGuard } from '@/guard/gql.guard';
 import { PageInputType } from '@/common/types/page/page.input.type';
-import {
-  UserBooleanResultType,
-  UserResultsType,
-  UserResultType,
-} from '@/modules/user/dto/user.result.type';
+import { UserResultsType, UserResultType } from '@/modules/user/dto/user.result.type';
+import { ResultBoolean } from '@/common/types/result.type';
 
 @Resolver()
 export class UserResolver {
@@ -52,7 +49,7 @@ export class UserResolver {
 
   //todo 开发阶段，没办法对用户创建进行拦截，正式发布后需要加上统一JWT拦截(会有初始管理员账号)
   @Mutation(() => Boolean, { description: '创建用户' })
-  async create(@Args('params') params: UserInputType): Promise<UserBooleanResultType> {
+  async create(@Args('params') params: UserInputType): Promise<ResultBoolean> {
     return await this.userService.create(params);
   }
 
@@ -61,19 +58,19 @@ export class UserResolver {
   async update(
     @Args('id') id: string,
     @Args('params') params: UserInputType
-  ): Promise<UserBooleanResultType> {
+  ): Promise<ResultBoolean> {
     return await this.userService.update(id, params);
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean, { description: '删除用户' })
-  async delete(@Args('id') id: string): Promise<UserBooleanResultType> {
+  async delete(@Args('id') id: string): Promise<ResultBoolean> {
     return await this.userService.delete(id);
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean, { description: '永久删除用户' })
-  async deleteForever(@Args('id') id: string): Promise<UserBooleanResultType> {
+  async deleteForever(@Args('id') id: string): Promise<ResultBoolean> {
     return await this.userService.deleteForever(id);
   }
 }
