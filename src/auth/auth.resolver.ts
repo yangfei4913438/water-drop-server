@@ -14,7 +14,6 @@ export class AuthResolver {
   @UseGuards(GqlAuthGuard)
   @Query(() => UserResultType, { description: 'JWT鉴权：返回获取用户信息' })
   async profile(@Context() ctx: ExecutionContext): Promise<UserResultType> {
-    console.log('ctx:', ctx['req'].userResult);
     if (ctx['req'].userResult) {
       return ctx['req'].userResult;
     }
