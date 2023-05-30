@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { UserModule } from '@/modules/user/user.module';
 import { OSSResolver } from './oss.resolver';
 import { OSSService } from './oss.service';
-import { UserModule } from '@/modules/user/user.module';
-import { JwtModule } from '@nestjs/jwt';
 
 @Global()
 @Module({

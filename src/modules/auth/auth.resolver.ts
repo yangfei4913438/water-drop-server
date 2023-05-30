@@ -1,10 +1,10 @@
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { AuthService } from './auth.service';
-import { AuthResultType } from '@/auth/dto/auth.result.type';
-import { ResultString } from '@/common/types/result.type';
 import { ExecutionContext, UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '@/guard/gql.guard';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { ResultString } from '@/common/types/result.type';
+import { GqlAuthGuard } from '@/common/guard/gql.guard';
+import { AuthResultType } from '@/modules/auth/dto/auth.result.type';
 import { UserResultType } from '@/modules/user/dto/user.result.type';
+import { AuthService } from './auth.service';
 
 @Resolver()
 export class AuthResolver {

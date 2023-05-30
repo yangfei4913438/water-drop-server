@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository } from 'typeorm';
-
 import { UserEntity } from './user.entity';
 import { UserResultsType, UserResultType } from '@/modules/user/dto/user.result.type';
 import { ResultBoolean } from '@/common/types/result.type';

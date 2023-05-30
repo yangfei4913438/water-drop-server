@@ -4,12 +4,11 @@ import Dysmsapi20170525 from '@alicloud/dysmsapi20170525';
 import { Config } from '@alicloud/openapi-client';
 import * as $Dysmsapi20170525 from '@alicloud/dysmsapi20170525';
 import * as $Util from '@alicloud/tea-util';
-
-import { UserService } from '@/modules/user/user.service';
 import { randomCode } from '@/utils';
-import { RedisService } from '@/redis/redis.service';
-import { AuthResultType } from '@/auth/dto/auth.result.type';
+import { RedisService } from '@/common/redis/redis.service';
 import { ResultString } from '@/common/types/result.type';
+import { UserService } from '@/modules/user/user.service';
+import { AuthResultType } from '@/modules/auth/dto/auth.result.type';
 
 @Injectable()
 export class AuthService {

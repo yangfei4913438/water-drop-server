@@ -1,7 +1,5 @@
 import { ObjectType } from '@nestjs/graphql';
-
 import { createResult, createResults } from '@/common/types/result.type';
-
 import { UserOutputType } from './user.output.type';
 
 @ObjectType({ description: '用户返回数据类型' })

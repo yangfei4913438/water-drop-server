@@ -3,13 +3,12 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
+import { OSSModule } from '@/modules/oss/oss.module';
+import { RedisModule } from '@/common/redis/redis.module';
+import { UserModule } from '@/modules/user/user.module';
+import { AuthModule } from '@/modules/auth/auth.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './modules/user/user.module';
-import { OSSModule } from '@/oss/oss.module';
-import { RedisModule } from '@/redis/redis.module';
-import { AuthModule } from '@/auth/auth.module';
 
 @Module({
   imports: [

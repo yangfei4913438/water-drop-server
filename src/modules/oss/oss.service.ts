@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
 import OSS from 'ali-oss';
 import { OSSType } from './dto/oss.type';
-import * as process from 'process';
 
 @Injectable()
 export class OSSService {

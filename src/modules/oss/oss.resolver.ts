@@ -1,10 +1,8 @@
 import { Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-
+import { GqlAuthGuard } from '@/common/guard/gql.guard';
 import { OSSType } from './dto/oss.type';
 import { OSSService } from './oss.service';
-
-import { GqlAuthGuard } from '@/guard/gql.guard';
 
 @Resolver()
 export class OSSResolver {

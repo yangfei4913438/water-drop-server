@@ -1,14 +1,13 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-
+import { GqlAuthGuard } from '@/common/guard/gql.guard';
+import { PageInputType } from '@/common/types/page/page.input.type';
+import { ResultBoolean } from '@/common/types/result.type';
+import { UserInfo } from '@/common/decorators/user.decorator';
+import { UserEntity } from '@/modules/user/user.entity';
+import { UserResultsType, UserResultType } from '@/modules/user/dto/user.result.type';
 import { UserService } from './user.service';
 import { UserInputType } from './dto/user.input.type';
-import { GqlAuthGuard } from '@/guard/gql.guard';
-import { PageInputType } from '@/common/types/page/page.input.type';
-import { UserResultsType, UserResultType } from '@/modules/user/dto/user.result.type';
-import { ResultBoolean } from '@/common/types/result.type';
-import { UserInfo } from '@/decorators/user.decorator';
-import { UserEntity } from '@/modules/user/user.entity';
 
 @Resolver()
 export class UserResolver {
