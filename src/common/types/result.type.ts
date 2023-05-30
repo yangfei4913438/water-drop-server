@@ -2,15 +2,17 @@ import { ClassType } from 'type-graphql';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { PageOutputType } from '@/common/types/page/page.output.type';
 
-export interface IResult<T> {
+export class ResultBase {
   code: number;
   message: string;
+}
+
+// 没想到吧，ts里面，接口是可以继承类的。
+export interface IResult<T> extends ResultBase {
   data?: T;
 }
 
-export interface IResults<T> {
-  code: number;
-  message: string;
+export interface IResults<T> extends ResultBase {
   data?: T[];
   page?: PageOutputType;
 }
